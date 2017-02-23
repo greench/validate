@@ -106,6 +106,27 @@ describe('Property', function () {
     })
   })
 
+  describe('.min()', function () {
+    it('should work', function () {
+      var prop = new Property('test', Schema());
+      prop.min(2);
+      prop.validate("a").should.be.an.instanceOf(Error);
+      prop.validate(2).should.be.an.instanceOf(Error);
+      prop.validate("aaa").should.eql(false);
+      prop.validate(3).should.eql(false);
+    })
+  })
+  describe('.max()', function () {
+    it('should work', function () {
+      var prop = new Property('test', Schema());
+      prop.max(4);
+      prop.validate(6).should.be.an.instanceOf(Error);
+      prop.validate("aaaaa").should.be.an.instanceOf(Error);
+      prop.validate("aaa").should.eql(false);
+      prop.validate(3).should.eql(false);
+    })
+  })
+
   describe('.typecast()', function () {
     it('should work', function () {
       var prop = new Property();
